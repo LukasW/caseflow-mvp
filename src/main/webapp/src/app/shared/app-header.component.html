@@ -1,0 +1,118 @@
+<header>
+  <!-- Brand-Gradient mit Logo und User-Badge -->
+  <div
+    class="flex min-h-[96px] flex-col gap-4 px-4 py-4 text-white sm:flex-row sm:items-center sm:gap-6 sm:px-10 sm:py-6"
+    style="background: var(--gradient-header)"
+  >
+    <div class="flex items-center justify-between gap-3 sm:contents">
+      <a routerLink="/" class="flex shrink-0 items-center gap-4 text-white">
+        <img src="css-logo.svg" alt="CSS" class="h-10 w-auto brightness-0 invert" />
+        <span class="text-2xl font-light tracking-wide">CaseFlow</span>
+      </a>
+
+      <div class="flex items-center gap-3 text-sm sm:ml-auto">
+        <button
+          type="button"
+          (click)="theme.toggle()"
+          [attr.aria-pressed]="theme.isDark()"
+          [title]="theme.isDark() ? 'Zur hellen Ansicht wechseln' : 'Zur dunklen Ansicht wechseln'"
+          [attr.aria-label]="
+            theme.isDark() ? 'Zur hellen Ansicht wechseln' : 'Zur dunklen Ansicht wechseln'
+          "
+          data-testid="theme-toggle"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:bg-white/15 focus-visible:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          @if (theme.isDark()) {
+            <svg
+              class="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="3.75" />
+              <path
+                d="M12 3v1.5M12 19.5V21M4.22 4.22l1.06 1.06M18.72 18.72l1.06 1.06M3 12h1.5M19.5 12H21M4.22 19.78l1.06-1.06M18.72 5.28l1.06-1.06"
+              />
+            </svg>
+          } @else {
+            <svg
+              class="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          }
+        </button>
+
+        @if (auth.user(); as user) {
+          <div class="flex items-center gap-3" data-testid="current-user">
+            <span class="font-medium text-white">{{ user.username }}</span>
+            @for (role of user.roles; track role) {
+              <span
+                class="rounded-[24px] border border-white/40 px-3 py-0.5 text-xs font-medium tracking-wider text-white uppercase"
+              >
+                {{ role }}
+              </span>
+            }
+            @if (auth.isAuthenticated()) {
+              <a
+                href="/logout"
+                data-testid="logout-link"
+                title="Abmelden"
+                aria-label="Abmelden"
+                class="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:bg-white/15 focus-visible:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <svg
+                  class="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15"
+                  />
+                  <path d="M9 12h12.75M21.75 12l-3-3M21.75 12l-3 3" />
+                </svg>
+              </a>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Sekundär-Navigation mit Routen-Links — pro Feature einen Eintrag ergänzen -->
+  <nav class="border-b border-line bg-surface">
+    <div class="mx-auto flex max-w-5xl items-center gap-1 overflow-x-auto px-4 py-2 sm:px-8">
+      @if (auth.isStaff()) {
+        <a
+          routerLink="/"
+          routerLinkActive="text-primary border-brand"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="shrink-0 border-b-2 border-transparent px-3 py-2 text-sm font-medium tracking-wider text-ink-muted uppercase whitespace-nowrap hover:text-primary"
+          style="letter-spacing: 1px"
+          data-testid="nav-home"
+        >
+          Übersicht
+        </a>
+      }
+    </div>
+  </nav>
+</header>

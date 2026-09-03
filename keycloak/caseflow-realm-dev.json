@@ -1,0 +1,140 @@
+{
+  "realm": "caseflow",
+  "enabled": true,
+  "sslRequired": "none",
+  "accessTokenLifespan": 3600,
+  "clients": [
+    {
+      "clientId": "caseflow",
+      "name": "CaseFlow",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "dev-secret",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "rootUrl": "http://localhost:8080",
+      "baseUrl": "/",
+      "redirectUris": [
+        "http://localhost:8080/*",
+        "http://localhost:4200/*"
+      ],
+      "webOrigins": [
+        "http://localhost:8080",
+        "http://localhost:4200"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:8080/*"
+      },
+      "fullScopeAllowed": true
+    }
+  ],
+  "roles": {
+    "realm": [],
+    "client": {
+      "caseflow": [
+        {
+          "name": "caseflow-case-manager",
+          "description": "Fälle erfassen, bearbeiten, abschliessen"
+        },
+        {
+          "name": "caseflow-team-lead",
+          "description": "Fälle zuweisen, Fristen und Auslastung überwachen"
+        },
+        {
+          "name": "caseflow-admin",
+          "description": "Stammdaten, Vertretungen, Konfiguration"
+        },
+        {
+          "name": "caseflow-auditor",
+          "description": "Lesender Zugriff auf Audit-Trail und Reports"
+        }
+      ]
+    }
+  },
+  "users": [
+    {
+      "username": "case-manager",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Carla",
+      "lastName": "Manager",
+      "email": "case-manager@caseflow.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "case-manager",
+          "temporary": false
+        }
+      ],
+      "clientRoles": {
+        "caseflow": [
+          "caseflow-case-manager"
+        ]
+      }
+    },
+    {
+      "username": "team-lead",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Tim",
+      "lastName": "Lead",
+      "email": "team-lead@caseflow.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "team-lead",
+          "temporary": false
+        }
+      ],
+      "clientRoles": {
+        "caseflow": [
+          "caseflow-team-lead"
+        ]
+      }
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Alex",
+      "lastName": "Admin",
+      "email": "admin@caseflow.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "clientRoles": {
+        "caseflow": [
+          "caseflow-admin"
+        ]
+      }
+    },
+    {
+      "username": "auditor",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Andrea",
+      "lastName": "Audit",
+      "email": "auditor@caseflow.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "auditor",
+          "temporary": false
+        }
+      ],
+      "clientRoles": {
+        "caseflow": [
+          "caseflow-auditor"
+        ]
+      }
+    }
+  ]
+}

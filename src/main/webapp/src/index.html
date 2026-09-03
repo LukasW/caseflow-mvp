@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>CaseFlow</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      // FOUC-Schutz: gespeichertes Theme vor dem ersten Paint anwenden.
+      // Default ist hell — die Betriebssystem-Präferenz wird bewusst ignoriert.
+      (function () {
+        try {
+          if (localStorage.getItem('caseflow-theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          /* localStorage nicht verfügbar — heller Modus bleibt aktiv. */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+    <noscript>Bitte aktiviere JavaScript, um diese Anwendung zu nutzen.</noscript>
+  </body>
+</html>

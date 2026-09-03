@@ -1,0 +1,19 @@
+<footer class="bg-surface-muted py-6">
+  <div
+    class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 text-sm sm:px-8"
+  >
+    <span class="text-xs text-ink-muted">© CSS Versicherung</span>
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+      @if (auth.isStaff()) {
+        @if (versionService.versionInfo(); as v) {
+          <span class="text-xs text-primary-muted">
+            v{{ v.version }} · {{ v.build_timestamp | slice: 0 : 16 }} · {{ v.git_commit_short }}
+          </span>
+        }
+        <a href="/docs/" target="_blank" class="text-sm text-ink-muted hover:text-primary">
+          Dokumentation
+        </a>
+      }
+    </div>
+  </div>
+</footer>

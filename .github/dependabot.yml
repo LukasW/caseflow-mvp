@@ -1,0 +1,33 @@
+# Dependabot — GitHub-native Dependency-Updates (keine Actions-Minuten).
+# Update-PRs werden vom CI-Workflow auf dem self-hosted Runner getestet.
+# (Die Gitea-Repos laufen separat über die self-hosted Renovate.)
+version: 2
+updates:
+  # Backend (Quarkus/Maven)
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      maven-minor-patch:
+        update-types: ["minor", "patch"]
+
+  # Frontend (Angular/npm)
+  - package-ecosystem: npm
+    directory: "/src/main/webapp"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      npm-minor-patch:
+        update-types: ["minor", "patch"]
+
+  # GitHub-Actions in den Workflows (ci.yml) aktuell halten
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]

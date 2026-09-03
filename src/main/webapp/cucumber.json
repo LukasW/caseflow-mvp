@@ -1,0 +1,8 @@
+{
+  "default": {
+    "paths": ["../../test/resources/features/**/*.feature"],
+    "import": ["e2e/cucumber/**/*.ts"],
+    "tags": "@E2E and not @Pending",
+    "format": ["progress"]
+  }
+}

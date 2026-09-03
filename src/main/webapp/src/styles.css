@@ -1,0 +1,178 @@
+/* Global styles. Tailwind CSS v4 is loaded via the PostCSS plugin. */
+@import 'tailwindcss';
+
+/* Nunito Sans — humanistische Schrift, sehr nahe an Museo Sans (Marken-Original).
+ * Self-hosted via @fontsource (SIL Open Font License). CSP-konform, da alle
+ * Font-Dateien aus dem node_modules-Verzeichnis ausgeliefert werden. */
+@import '@fontsource/nunito-sans/300.css';
+@import '@fontsource/nunito-sans/400.css';
+@import '@fontsource/nunito-sans/500.css';
+@import '@fontsource/nunito-sans/700.css';
+
+/* ----------------------------------------------------------------------------
+ * Design-Tokens — CSS-Branding
+ * Quelle: www.css.ch/de/privatkunden.html, home.css.ch/de/angaben (analysiert
+ * über das gerenderte DOM). Tailwind v4 generiert aus diesen Custom-Properties
+ * die Utility-Klassen (z.B. bg-primary, text-ink-muted, border-line).
+ *
+ * Hell-/Dunkelmodus (US-480): Die hier definierten Lichtmodus-Werte werden im
+ * html.dark-Block unten überschrieben. Da alle Utilities und Komponenten-Klassen
+ * die Tokens referenzieren, schaltet das Theme allein über das `dark`-Flag am
+ * Wurzelelement um — ohne dark:-Varianten.
+ * -------------------------------------------------------------------------- */
+@theme {
+  --color-primary: #00327d; /* Vordergrund: Text, Überschriften */
+  --color-primary-dark: #001f54; /* dunkleres Marineblau */
+  --color-primary-light: #4d70a4; /* Links, Outline-/Input-Borders */
+  --color-primary-muted: #9aa6c1; /* Disabled-/Tertiärtext */
+
+  --color-brand: #00327d; /* Interaktive Flächen: Primärbuttons, Stepper */
+  --color-brand-dark: #001f54; /* Hover für Primärbuttons */
+
+  --color-ink-muted: #3a5680; /* Sekundärtext */
+  --color-ink-subtle: #5a5a5a; /* Grauer Fliesstext */
+  --color-ink-strong: #1a1a1a; /* Nahezu schwarzer Text */
+
+  --color-surface: #ffffff; /* Cards, Inputs */
+  --color-surface-muted: #f7f7f4; /* Section-Hintergrund (warmes Off-White) */
+  --color-surface-tint: #eef3fb; /* Hellblau getönte Panels */
+  --color-canvas: #f7f7f4; /* Page-Hintergrund */
+
+  --color-line: #d6d6d6; /* Subtile Borders/Divider */
+  --color-line-soft: #d0dcef; /* Hellblaue Borders */
+
+  --color-danger: #b00020; /* Fehlertext */
+
+  --color-border-subtle: #d6d6d6;
+  --color-overlay: rgba(51, 51, 51, 0.5);
+
+  --font-sans:
+    'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+
+  --radius-pill: 24px;
+  --radius-input: 5px;
+  --radius-card: 8px;
+
+  --shadow-card:
+    0 1px 0 rgba(0, 50, 125, 0.08), 0 12px 32px rgba(0, 50, 125, 0.10),
+    0 4px 8px rgba(0, 50, 125, 0.06), 0 2px 4px rgba(0, 50, 125, 0.04);
+
+  --gradient-header: linear-gradient(135deg, #00327d 0%, #1857b5 100%);
+}
+
+/* Dunkelmodus — überschreibt die Marken-Tokens (US-480). Die Kontraste der
+ * Vordergrund-Token auf den dunklen Flächen erfüllen WCAG AA (≥ 4.5:1 für
+ * Fliesstext). Status-Badges (Tailwind-Paletten red/amber/green/blue/…) bleiben
+ * bewusst farbig — sie tragen Hintergrund und Text selbst und sind auch auf
+ * dunklen Flächen lesbar. */
+html.dark {
+  --color-primary: #e7edf7;
+  --color-primary-dark: #c7d4ea;
+  --color-primary-light: #8aa6d4;
+  --color-primary-muted: #7c8aa3;
+
+  --color-brand: #3b6fd4;
+  --color-brand-dark: #2c59ad;
+
+  --color-ink-muted: #aab8cc;
+  --color-ink-subtle: #c2ccdb;
+  --color-ink-strong: #f1f5f9;
+
+  --color-surface: #1e293b;
+  --color-surface-muted: #172033;
+  --color-surface-tint: #233047;
+  --color-canvas: #0f172a;
+
+  --color-line: #334155;
+  --color-line-soft: #3a4a63;
+
+  --color-danger: #f87171;
+
+  --color-border-subtle: #334155;
+  --gradient-header: linear-gradient(135deg, #001f54 0%, #143a7a 100%);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 300;
+  color: var(--color-primary);
+}
+
+/* ----------------------------------------------------------------------------
+ * Komponenten-Klassen — wiederverwendbare Marken-Patterns, damit die langen
+ * Utility-Ketten in Templates kompakt bleiben. Alle Farben laufen über die
+ * Theme-Tokens und schalten daher im Dunkelmodus automatisch um.
+ * -------------------------------------------------------------------------- */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-[24px] bg-brand
+      px-8 py-3 text-sm font-medium tracking-wider text-white uppercase
+      transition hover:bg-brand-dark disabled:cursor-not-allowed
+      disabled:bg-primary-muted;
+    letter-spacing: 1px;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-[24px] border
+      border-primary-light bg-surface px-8 py-3 text-sm font-medium tracking-wider
+      text-primary uppercase transition hover:bg-surface-muted;
+    letter-spacing: 1px;
+  }
+
+  .form-input {
+    @apply h-11 w-full rounded-[5px] border border-primary-light bg-surface px-4
+      text-base text-primary focus:border-brand focus:ring-2
+      focus:ring-brand/20 focus:outline-none;
+  }
+
+  .form-input::placeholder {
+    color: var(--color-primary-muted);
+  }
+
+  .form-input:disabled,
+  .form-input[readonly] {
+    background: var(--color-surface-muted);
+    cursor: not-allowed;
+  }
+
+  .form-textarea {
+    @apply w-full rounded-[5px] border border-primary-light bg-surface px-4 py-3
+      text-base text-primary focus:border-brand focus:ring-2
+      focus:ring-brand/20 focus:outline-none;
+  }
+
+  .form-select {
+    @apply h-11 w-full rounded-[5px] border border-primary-light bg-surface px-4
+      text-base text-primary focus:border-brand focus:ring-2
+      focus:ring-brand/20 focus:outline-none;
+  }
+
+  .form-label {
+    @apply mb-1 block text-sm font-medium text-primary;
+  }
+
+  .form-section {
+    @apply rounded-[8px] bg-surface-muted p-6;
+  }
+
+  .form-section-title {
+    @apply mb-4 text-base font-medium text-primary;
+  }
+}

@@ -1,0 +1,44 @@
+site_name: CaseFlow — Systemdokumentation
+site_description: Spezifikation, User Stories und Architektur des Case-Management-Tools CaseFlow (CSS)
+docs_dir: specs
+site_dir: src/main/resources/META-INF/resources/docs
+
+theme:
+  name: material
+  language: de
+  palette:
+    scheme: default
+    primary: teal
+    accent: cyan
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+
+plugins:
+  - search:
+      lang: de
+
+exclude_docs: |
+  *.puml
+  .DS_Store
+
+nav:
+  - Start: index.md
+  - Übersicht: high-level-specification.md
+  - Architektur: caseflow-arc42.md
+  - Glossar: glossary.md
+
+  - User Stories:
+    - Übersicht & Traceability: user-stories/README.md
+
+  - ADRs:
+    - Übersicht: adr/README.md
+    - ADR-01 Hexagonal Architecture & DDD: adr/adr-01-hexagonal-architecture-und-ddd.md
+    - ADR-02 Quarkus BFF mit Quinoa: adr/adr-02-ein-quarkus-deployable-bff.md
+    - ADR-03 OIDC Keycloak BFF: adr/adr-03-oidc-keycloak-bff-pattern.md
+    - ADR-04 PostgreSQL Case Store & Audit-Trail: adr/adr-04-postgresql-case-store-und-audit.md
+    - ADR-05 Angular SPA Rollensichten: adr/adr-05-eine-angular-spa-mit-rollensichten.md
