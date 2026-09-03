@@ -14,7 +14,7 @@
 - [ ] Statusänderungen am Aggregat erzeugen Audit-Einträge (ADR-04)
 - [ ] Rollen-/Owner-Checks serverseitig — besonders bei KVG-Daten (ADR-03/05)
 - [ ] Public APIs dokumentiert, keine TODOs ohne Issue-Referenz
-- [ ] CLAUDE.md / Spezifikationen / ADR-Index aktualisiert, falls sich
+- [ ] `.github/copilot-instructions.md` / Spezifikationen / ADR-Index aktualisiert, falls sich
       Architektur oder ubiquitäre Sprache ändert
 
 ## Test plan

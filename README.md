@@ -116,8 +116,8 @@ ch.css.demo.caseflow/
     └── out/persistence     # JPA + Panache — driven adapters
 ```
 
-See `CLAUDE.md` (Claude Code) or `.github/copilot-instructions.md` (GitHub Copilot)
-for the full hexagonal + DDD tactical-design conventions.
+See `.github/copilot-instructions.md` for the full hexagonal + DDD tactical-design
+conventions.
 Architektur-Invarianten werden via ArchUnit geprüft
 (`src/test/java/ch/css/demo/caseflow/architecture/HexagonArchitectureTest.java`).
 

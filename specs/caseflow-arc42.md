@@ -37,7 +37,7 @@ eine SPA mit rollenbasierten Sichten ([ADR-05](adr/adr-05-eine-angular-spa-mit-r
 
 ## 5. Bausteinsicht
 
-Siehe `CLAUDE.md` → Architecture. Paket `ch.css.demo.caseflow` mit `domain`,
+Siehe `.github/copilot-instructions.md` → Architektur. Paket `ch.css.demo.caseflow` mit `domain`,
 `application`, `adapter`.
 
 ## 6. Laufzeitsicht

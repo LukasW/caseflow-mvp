@@ -27,7 +27,7 @@ serverseitig an den REST-Ressourcen (`@RolesAllowed`, Owner-Checks).
 ## Konsequenzen
 
 - Jede neue Rolle wird in `Roles.java`, `RoleMappingAugmentor`, `user.model.ts`
-  und dem Keycloak-Realm nachgeführt (siehe CLAUDE.md → "Add a role").
+  und dem Keycloak-Realm nachgeführt (siehe `.github/copilot-instructions.md` → „Rolle hinzufügen").
 - Komponenten dürfen keine Business-Autorisierung enthalten.
 
 ## Verworfene Alternativen

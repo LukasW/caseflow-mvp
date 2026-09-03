@@ -48,9 +48,4 @@ nb-configuration.xml
 /src/main/resources/META-INF/
 /.mkdocs-venv/
 
-# Claude Code — local runtime artifacts
-.claude/scheduled_tasks.lock
-.claude/settings.local.json
-.claude/.DS_Store
-.claude/worktrees/
 .playwright-mcp/

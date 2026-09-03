@@ -6,7 +6,7 @@
 
     <!--
         Baseline ohne Tabellen. Das erste Aggregat (z. B. `Case`) bringt seine
-        eigene Migration 0002-create-case.xml mit — siehe CLAUDE.md → "Add an aggregate".
+        eigene Migration 0002-create-case.xml mit — siehe .github/copilot-instructions.md → „Aggregat hinzufügen".
     -->
     <changeSet id="0001-baseline" author="caseflow">
         <comment>Leere Baseline — Schema wird mit dem ersten Aggregat angelegt.</comment>
