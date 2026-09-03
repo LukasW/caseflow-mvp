@@ -42,7 +42,15 @@ Siehe `.github/copilot-instructions.md` → Architektur. Paket `ch.css.demo.case
 
 ## 6. Laufzeitsicht
 
-Wird mit den ersten User Stories ergänzt (Fall erfassen, Fall zuweisen, Frist überschritten).
+Die Abläufe sind je Use Case in den [User Stories](user-stories/README.md) als
+BDD-Szenarien beschrieben: Fall erfassen ([US-1](user-stories/1-fall-erfassen.md)),
+zuweisen ([US-2](user-stories/2-fall-zuweisen.md)), bearbeiten
+([US-3](user-stories/3-fall-bearbeiten.md)), Fristen und Fälligkeit
+([US-4](user-stories/4-frist-setzen.md), [US-5](user-stories/5-faellige-faelle-anzeigen.md)),
+abschliessen und wiedereröffnen ([US-6](user-stories/6-fall-abschliessen.md),
+[US-7](user-stories/7-fall-wiedereroeffnen.md)), Übersicht
+([US-8](user-stories/8-falluebersicht-filtern.md)) und Audit-Trail
+([US-9](user-stories/9-audit-trail-einsehen.md)).
 
 ## 7. Verteilungssicht
 

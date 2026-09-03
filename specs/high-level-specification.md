@@ -32,7 +32,7 @@ Konkret fehlt:
 **Ein Tool. Ein Fall. Volle Kontrolle.**
 
 | Versprechen | Fachliche Bedeutung |
-|---|---|
+| --- | --- |
 | Alles an einem Ort | Erfassung, Zuweisung, Bearbeitung, Abschluss ohne Systemwechsel |
 | Keine verpassten Fristen | Wiedervorlagen und Fälligkeiten werden aktiv nachverfolgt |
 | Lückenlose Nachvollziehbarkeit | Jede Statusänderung ist im Audit-Trail belegbar |
@@ -51,7 +51,7 @@ mehr Zeit für die eigentliche Fallbearbeitung statt für die Suche nach dem Fal
 ### 3.1 In Scope
 
 | Bereich | Inhalt |
-|---|---|
+| --- | --- |
 | Fall-Lebenszyklus | Erfassen mit Grunddaten (Referenz, Typ, Priorität, Quelle), zuweisen, bearbeiten, abschliessen |
 | Fallbearbeitung | Statuswechsel, Notizen, Bearbeitungshistorie |
 | Fristen | Wiedervorlagen und Fälligkeiten setzen; System zeigt fällige und überfällige Fälle aktiv an |
@@ -80,7 +80,7 @@ Compliance.
 ## 4. Rollenmodell
 
 | Rolle | Darf | Bedürfnis dahinter |
-|---|---|---|
+| --- | --- | --- |
 | `CASE_MANAGER` | Fälle erfassen, eigene Fälle bearbeiten, Wiedervorlagen setzen, abschliessen | Übersicht über eigene Fälle, keine verpassten Fristen |
 | `TEAM_LEAD` | Fälle zuweisen und umverteilen, Fristen und Auslastung des Teams sehen | Überblick über Team und offene Fälle |
 | `ADMIN` | Stammdaten, Konfiguration | Wartbares System |
@@ -101,7 +101,7 @@ Anfang an tragen, auch wenn die Regeln im MVP noch einfach sind.
 4. **Frist setzen** – Wiedervorlage oder Fälligkeit mit Datum und Grund; fällige Fälle erscheinen in der Übersicht markiert
 5. **Fall abschliessen** – Abschlussgrund pflichtig; danach read-only, nur `ADMIN` kann wiedereröffnen (Audit-Eintrag)
 
-Statusmodell (Vorschlag, in User Stories zu bestätigen): `NEU` → `IN_BEARBEITUNG` → `WARTEND` ↔ `IN_BEARBEITUNG` → `ABGESCHLOSSEN`.
+Statusmodell: `NEU` → `IN_BEARBEITUNG` → `WARTEND` ↔ `IN_BEARBEITUNG` → `ABGESCHLOSSEN`; Wiedereröffnung nur durch `ADMIN` zurück nach `IN_BEARBEITUNG`. Die Übergänge sind in `user-stories/` festgeschrieben (US-3, US-6, US-7).
 
 ## 6. Domänenmodell (Kontur)
 
@@ -117,7 +117,7 @@ Detaillierung erfolgt in den User Stories und ADRs.
 ## 7. Nicht-funktionale Anforderungen
 
 | Kategorie | Anforderung |
-|---|---|
+| --- | --- |
 | Datenschutz | Personendaten gemäss DSG; besondere Schutzwürdigkeit bei Gesundheitsdaten (KVG-Fälle) |
 | Compliance | Audit-Trail unveränderbar (append-only); Aufbewahrungsfristen gemäss VVG/KVG |
 | Zugriff | Rollenbasiert, serverseitig; kein Fall ohne Zuständigkeit sichtbar für Dritte |
@@ -129,7 +129,7 @@ Detaillierung erfolgt in den User Stories und ADRs.
 ## 8. Schnittstellen
 
 | Schnittstelle | Zweck | MVP |
-|---|---|---|
+| --- | --- | --- |
 | IAM | Authentifizierung, Rollen, Teams | Ja, zwingend |
 | Kernsystem | Fallreferenz validieren | Nein – Referenz als ID |
 | E-Mail (ausgehend) | Benachrichtigung bei Zuweisung/Fälligkeit | Nein – Phase 2 |
@@ -138,12 +138,13 @@ Detaillierung erfolgt in den User Stories und ADRs.
 ## 9. API-Konturen
 
 | Endpoint | Zweck | Status |
-|---|---|---|
+| --- | --- | --- |
 | `GET /api/v1/me` | Identität und Rollen des Nutzers | vorhanden |
 | `GET /api/v1/version` | Build-Informationen | vorhanden |
-| `/api/v1/cases` | Fall-Lebenszyklus | geplant |
-| `/api/v1/cases/{id}/deadlines` | Fristen | geplant |
-| `/api/v1/cases/{id}/audit` | Audit-Trail (lesend, `AUDITOR`/`TEAM_LEAD`) | geplant |
+| `/api/v1/cases` | Fall-Lebenszyklus (erfassen, bearbeiten, abschliessen, wiedereröffnen, Übersicht) | geplant (US-1, US-3, US-6, US-7, US-8) |
+| `/api/v1/cases/{id}/assignment` | Zuweisung und Umverteilung | geplant (US-2) |
+| `/api/v1/cases/{id}/deadlines` | Fristen | geplant (US-4, US-5) |
+| `/api/v1/cases/{id}/audit` | Audit-Trail (lesend, `AUDITOR`/`TEAM_LEAD`) | geplant (US-9) |
 
 DTOs werden als `snake_case`-JSON ausgeliefert. OpenAPI unter `/q/openapi`,
 Swagger-UI unter `/q/swagger-ui`.
@@ -160,7 +161,7 @@ Auswertung nach 4 Wochen Pilotbetrieb, danach Entscheid über Rollout oder Erwei
 ## 11. Risiken
 
 | Risiko | Auswirkung | Massnahme |
-|---|---|---|
+| --- | --- | --- |
 | Doppelerfassung wegen fehlender Kernsystem-Anbindung | Akzeptanzproblem | Als MVP-Einschränkung kommunizieren; Anbindung Phase 2 |
 | Gesundheitsdaten ungenügend geschützt | Compliance-Verstoss | Rollenmodell und Datenschutz-Review vor Go-Live zwingend |
 | Fehlende Dokumentenablage führt zu Parallelablage in E-Mail | Leitfrage nicht erfüllt | Im Pilot messen, ob Dokumente den Rückfall auslösen; falls ja, Phase-2-Priorität 1 |
@@ -171,7 +172,7 @@ Auswertung nach 4 Wochen Pilotbetrieb, danach Entscheid über Rollout oder Erwei
 Abweichungen zwischen Projektskelett v0.1 und MVP-Spezifikation v0.1, mit Entscheid:
 
 | Thema | MVP-Spezifikation | Projektskelett | Entscheid v0.2 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Dokumente | In Scope (Upload, Objekt-Storage) | Ausser Scope | **Ausser Scope.** Objekt-Storage plus Gesundheitsdaten verdoppelt den Datenschutz-Aufwand; Leitfrage ist auch ohne Dokumente prüfbar. Als Risiko geführt. |
 | Zuweisungsregel | Manuell oder Round-Robin | Manuell durch `TEAM_LEAD` | **Manuell.** Round-Robin Phase 2. |
 | Erinnerung | Optional E-Mail (SMTP) | «aktiv nachverfolgt», unspezifiziert | **In-App.** Fällige Fälle in Übersicht markiert; E-Mail Phase 2. |
