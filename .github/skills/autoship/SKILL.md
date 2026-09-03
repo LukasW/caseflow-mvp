@@ -41,6 +41,7 @@ anzulegen — der Setup-Subagent erkennt das per `git branch --show-current`.
 ### A5. Implementieren
 
 - **Lay of the Land erst:** Vor der Implementierung **einen** Subagent (z. B. `runSubagent`/Explore-Agent) starten, der die für das Issue relevanten Dateien (Aggregates, Ports, Adapter, REST-Resources, Tests, Specs) lokalisiert und kurz beschreibt.
+- **Plan-Artefakt bei nicht-trivialen Issues:** Fehlt `specs/plans/us-<nr>-*.md` und berührt das Issue mehr als eine Schicht, Migration, Auth/Security oder den Audit-Trail (oder hat >3 Akzeptanzkriterien), erst kurz einen Plan nach `specs/plans/` schreiben (Format wie `/plan`) — **ohne** auf Bestätigung zu warten — und daran arbeiten. So bleibt die Traceability Issue → Plan → Tests erhalten.
 - Halte dich an `.github/copilot-instructions.md` und `.github/instructions/` (Hexagonal, DDD, Signals, OnPush, …).
 - Falls ein `/plan`-Output in `specs/plans/` vorliegt: daran orientieren.
 - Tests parallel zur Implementierung schreiben (Unit + Komponenten).

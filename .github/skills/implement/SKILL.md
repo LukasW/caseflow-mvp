@@ -30,7 +30,22 @@ Bei Konflikten zwischen Stories (Fall A): stillere, konsistentere
 Variante wählen und im PR-Body unter „Story-Konsistenz" begründen — **nicht**
 beim User nachfragen.
 
-## 5. Implementieren
+## 5. Plan-Gate
+
+Bevor du Code schreibst: prüfe, ob für dieses Issue ein **bestätigter Plan** unter
+`specs/plans/us-<nr>-*.md` existiert.
+
+- **Plan vorhanden** → daran orientieren, weiter zu Schritt 5a.
+- **Plan fehlt und das Issue ist nicht-trivial** → erst `/plan` mit dieser
+  Issue-Nummer ausführen und Bestätigung einholen, dann fortfahren. Als
+  nicht-trivial gilt jede dieser Heuristiken:
+  - Use-Case-Issue mit **mehr als 3 Akzeptanzkriterien**
+  - berührt **mehr als eine Schicht** (z. B. Domain + Adapter + Frontend)
+  - berührt **Migration (Liquibase), Auth/Security, Audit-Trail** oder Breaking Changes
+- **Trivialer Task** (einzelne Datei, keine der obigen Punkte) → ohne Plan direkt
+  weiter.
+
+## 5a. Implementieren
 
 - **Lay of the Land erst:** Vor der eigentlichen Implementierung **einen** Subagent (z. B. `runSubagent`/Explore-Agent) starten, der die für das Issue relevanten Dateien (Aggregates, Ports, Adapter, REST-Resources, Tests, Specs) lokalisiert und kurz beschreibt. Spart 10–20 sequenzielle find/grep-Aufrufe.
 - Halte dich an `.github/copilot-instructions.md` und die pfadbezogenen Regeln in `.github/instructions/` (Hexagonal, DDD, Signals, OnPush, …).

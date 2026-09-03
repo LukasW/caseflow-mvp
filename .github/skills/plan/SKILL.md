@@ -52,7 +52,14 @@ Struktur (Markdown-Tasks `- [ ]` für alle Implementierungsschritte):
 - …
 ```
 
-## 5. Präsentieren und warten
+## 5. Backlink in die User Story
+
+Existiert `specs/user-stories/<nr>-*.md`, ergänze dort eine Zeile in der
+Kopf-Tabelle, die auf die Plan-Datei verweist (`| Plan | [<dateiname>](../plans/<dateiname>) |`).
+So bleibt die Story-Datei die zentrale Einstiegsstelle mit Traceability
+Issue → Plan → Tests.
+
+## 6. Präsentieren und warten
 
 Zeige Datei-Pfad + Zusammenfassung. **Implementiere nichts vor Bestätigung.**
 Bei Korrekturen: Plan-Datei anpassen, erneut vorlegen. Erst nach „OK"/„ja"/„go": `/implement` mit dieser Issue-Nummer.

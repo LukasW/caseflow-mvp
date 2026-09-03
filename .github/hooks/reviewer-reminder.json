@@ -4,7 +4,7 @@
     "postToolUse": [
       {
         "type": "command",
-        "matcher": "edit|create|write|str_replace_editor|editFiles|createFile",
+        "matcher": "edit|create|write|str_replace_editor|editFiles|createFile|create_file|replace_string_in_file|multi_replace_string_in_file|insert_edit_into_file|apply_patch",
         "bash": ".github/hooks/scripts/reviewer-reminder.sh",
         "cwd": ".",
         "timeoutSec": 10

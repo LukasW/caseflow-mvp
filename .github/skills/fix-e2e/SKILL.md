@@ -4,14 +4,17 @@ description: "Bringt iterativ alle E2E-Tests grün: Maven fail-fast starten, sch
 compatibility: "Requires Maven (mvnw), Node/npm, Playwright-Browser; Playwright-MCP optional"
 ---
 
-Ziel: `./mvnw clean install` komplett grün bekommen, inklusive der
+Ziel: den vollen Verifikationslauf komplett grün bekommen, inklusive der
 Cucumber-/Playwright-E2E-Tests.
+
+**Build-Befehl: `mvnd`** wenn im PATH (warmer Maven-Daemon), sonst `./mvnw` —
+konsistent mit `/implement` und `/autoship`.
 
 ## Ablauf
 
 Wiederhole diese Schleife, bis der komplette Build grün durchläuft:
 
-1. **Starten**: `./mvnw clean install -Dsurefire.skipAfterFailureCount=1 -Dfailsafe.skipAfterFailureCount=1` im Hintergrund-Terminal. Der Fail-Fast-Mechanismus sorgt dafür, dass Maven beim ersten gescheiterten IT abbricht.
+1. **Starten**: `mvnd verify -Dsurefire.skipAfterFailureCount=1 -Dfailsafe.skipAfterFailureCount=1` im Hintergrund-Terminal. Der Fail-Fast-Mechanismus sorgt dafür, dass Maven beim ersten gescheiterten IT abbricht.
 
 2. **Fail-Fast für Cucumber sicherstellen**: Die Cucumber.js-Konfiguration (`src/main/webapp/cucumber.json`) muss `failFast: true` gesetzt haben, damit Cucumber.js ebenfalls beim ersten gescheiterten Szenario stoppt.
 
@@ -39,6 +42,6 @@ Wiederhole diese Schleife, bis der komplette Build grün durchläuft:
 
 ## Commit & Abschluss
 
-Nur dann einen Commit erstellen, wenn der komplette `./mvnw clean install` ohne
+Nur dann einen Commit erstellen, wenn `mvnd verify` (bzw. `./mvnw verify`) ohne
 Fail-Fast-Flags grün durchläuft. Commit-Message: `fix(e2e): <kurze
 Beschreibung> (#<issue>)`. Nicht pushen ohne explizite User-Freigabe.

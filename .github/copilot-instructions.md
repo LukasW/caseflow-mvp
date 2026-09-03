@@ -162,6 +162,7 @@ cd src/main/webapp && npm test    # Nur Frontend-Tests (Vitest)
 - **Unit-Tests** (`*Test`): Domänenlogik und Use-Case-Services isoliert — Driven Ports mocken
 - **`@QuarkusTest`** (`*IT`): startet die App gegen Dev-Services-PostgreSQL — braucht eine Container-Runtime
 - **Cucumber**: `.feature`-Dateien unter `src/test/resources/features/`; Java-Runner `CucumberIT` (ohne Tag), Playwright-Runner via `npm run e2e:cucumber` (Tag `@E2E`)
+- **Guardrails** (`*Test`, ohne Container): `HexagonArchitectureTest` (Schichtdisziplin), `SpecScenarioParityTest` (Story ↔ `.feature`-Szenarien synchron), `DisplayTextTransliterationTest` (keine ASCII-Transliteration in kundensichtbarem Angular-Text)
 - Verhalten testen, nicht Implementierung. Eine Assertion pro logischem Konzept.
 
 ## Clean Code
@@ -255,7 +256,8 @@ cd src/main/webapp && npm test    # Nur Frontend-Tests (Vitest)
 - **Domain Service hinzufügen**: Pure Klasse in `domain/service/` — nur wenn die Logik zu keiner Entity/VO passt
 - **Frontend-Feature hinzufügen**: Komponente in `features/`, Route in `app.routes.ts`, Model in `core/models/`, Service in `core/services/`, Nav-Link in `shared/app-header.component.html`
 - **Rolle hinzufügen**: Konstante in `Roles.java`, Mapping im `RoleMappingAugmentor`, Client-Rolle + Testuser in `keycloak/caseflow-realm-dev.json`, `Role`-Union in `core/models/user.model.ts`, Policy `staff` in `application.properties` prüfen
-- **User Story hinzufügen**: `specs/user-stories/<nr>-<slug>.md` + Zeile in `specs/user-stories/README.md` + Nav-Eintrag in `mkdocs.yml`; `.feature` unter `src/test/resources/features/<bereich>/`
+- **User Story hinzufügen**: `specs/user-stories/<nr>-<slug>.md` + Zeile in `specs/user-stories/README.md` + Nav-Eintrag in `mkdocs.yml`; `.feature` unter `src/test/resources/features/<bereich>/`. Feature-Titel `US-<nr> <Kurztitel>` — `SpecScenarioParityTest` erzwingt gleiche Szenario-Anzahl in Story und Feature.
+- **Architekturentscheid festhalten (ADR)**: neuer Record `specs/adr/adr-<NN>-<slug>.md` (Format Kontext → Entscheidung → Begründung → Konsequenzen → Verworfene Alternativen) + Zeile im Index `specs/adr/README.md` + Nav-Eintrag in `mkdocs.yml`. Skill `/adr` automatisiert das.
 
 ## Copilot-Werkzeuge in diesem Repo
 
@@ -263,7 +265,7 @@ cd src/main/webapp && npm test    # Nur Frontend-Tests (Vitest)
 |-----|-------|
 | `.github/instructions/*.instructions.md` | Pfadbezogene Regeln (Backend-Hexagonal, Angular, Auth/Security, Cucumber) — greifen automatisch beim Bearbeiten passender Dateien |
 | `.github/agents/*.agent.md` | Custom Agents `hexagonal-reviewer`, `angular-signals-reviewer`, `auth-security-reviewer`, `bdd-cucumber-author` — als Reviewer vor jedem Commit einsetzen |
-| `.github/skills/<name>/SKILL.md` | Agent Skills (agentskills.io-Standard) `task`, `plan`, `implement`, `ship`, `autoship`, `fast`, `fix-e2e` — nur auf ausdrücklichen Aufruf ausführen |
+| `.github/skills/<name>/SKILL.md` | Agent Skills (agentskills.io-Standard) `task`, `plan`, `implement`, `ship`, `autoship`, `fast`, `fix-e2e`, `adr` — nur auf ausdrücklichen Aufruf ausführen |
 | `.github/skills/_shared/*.md` | Geteilte Fragmente (DoD, BDD, Kosten-Disziplin, MCP-Erkennung), aus den Skills referenziert |
 | `.github/prompts/*.prompt.md` | Dünne Prompt-Dateien für VS Code (`/task`, `/implement`, …), delegieren an den gleichnamigen Skill |
 | `.github/hooks/reviewer-reminder.json` | PostToolUse-Hook: erinnert nach Edits an den passenden Reviewer-Agenten |

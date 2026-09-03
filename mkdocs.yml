@@ -22,6 +22,13 @@ plugins:
   - search:
       lang: de
 
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
 exclude_docs: |
   *.puml
   .DS_Store
@@ -29,16 +36,26 @@ exclude_docs: |
 nav:
   - Start: index.md
   - Übersicht: high-level-specification.md
+  - Spec Flow (SDD): spec-flow.md
   - Architektur: caseflow-arc42.md
   - Glossar: glossary.md
 
   - User Stories:
-    - Übersicht & Traceability: user-stories/README.md
+      - Übersicht & Traceability: user-stories/README.md
+      - US-1 Fall erfassen: user-stories/1-fall-erfassen.md
+      - US-2 Fall zuweisen und umverteilen: user-stories/2-fall-zuweisen.md
+      - US-3 Fall bearbeiten - Status und Notizen: user-stories/3-fall-bearbeiten.md
+      - US-4 Frist setzen: user-stories/4-frist-setzen.md
+      - US-5 Fällige und überfällige Fälle: user-stories/5-faellige-faelle-anzeigen.md
+      - US-6 Fall abschliessen: user-stories/6-fall-abschliessen.md
+      - US-7 Fall wiedereröffnen: user-stories/7-fall-wiedereroeffnen.md
+      - US-8 Fallübersicht und Filter: user-stories/8-falluebersicht-filtern.md
+      - US-9 Audit-Trail einsehen: user-stories/9-audit-trail-einsehen.md
 
   - ADRs:
-    - Übersicht: adr/README.md
-    - ADR-01 Hexagonal Architecture & DDD: adr/adr-01-hexagonal-architecture-und-ddd.md
-    - ADR-02 Quarkus BFF mit Quinoa: adr/adr-02-ein-quarkus-deployable-bff.md
-    - ADR-03 OIDC Keycloak BFF: adr/adr-03-oidc-keycloak-bff-pattern.md
-    - ADR-04 PostgreSQL Case Store & Audit-Trail: adr/adr-04-postgresql-case-store-und-audit.md
-    - ADR-05 Angular SPA Rollensichten: adr/adr-05-eine-angular-spa-mit-rollensichten.md
+      - Übersicht: adr/README.md
+      - ADR-01 Hexagonal Architecture & DDD: adr/adr-01-hexagonal-architecture-und-ddd.md
+      - ADR-02 Quarkus BFF mit Quinoa: adr/adr-02-ein-quarkus-deployable-bff.md
+      - ADR-03 OIDC Keycloak BFF: adr/adr-03-oidc-keycloak-bff-pattern.md
+      - ADR-04 PostgreSQL Case Store & Audit-Trail: adr/adr-04-postgresql-case-store-und-audit.md
+      - ADR-05 Angular SPA Rollensichten: adr/adr-05-eine-angular-spa-mit-rollensichten.md
