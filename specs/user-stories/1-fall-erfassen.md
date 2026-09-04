@@ -6,6 +6,8 @@
 | Priorität | Hoch |
 | Schätzung | M |
 | Issue | [#7](https://github.com/css-ch/caseflow-mvp/issues/7) |
+| Plan | [us-7-fall-erfassen.md](../plans/us-7-fall-erfassen.md) |
+| Feature | [fall-erfassen.feature](../../src/test/resources/features/case/fall-erfassen.feature) |
 | Rollen | `CASE_MANAGER` |
 
 ## Beschreibung
@@ -68,14 +70,14 @@ damit **ein eingehendes Anliegen strukturiert im Tool statt in E-Mail oder Excel
 
 ## Aufgaben
 
-- [ ] `Case` Aggregate Root + Value Objects (`CaseType`, `Priority`, `Source`, `CaseReference`) in `domain/model/`
-- [ ] `AuditEntry` Value Object in `domain/model/`
-- [ ] Use-Case-Port `CreateCase` in `domain/port/in/`
-- [ ] Repository-Port `CaseRepository` in `domain/port/out/`
-- [ ] `CreateCaseService` in `application/service/`
-- [ ] `CaseEntity` + Panache-`CaseRepository`-Adapter in `adapter/out/persistence/`
-- [ ] REST-Resource `POST /api/v1/cases` + DTOs in `adapter/in/rest/`
-- [ ] Liquibase-Migration `case`-Tabelle + Include in `db/changeLog.xml`
-- [ ] Unit-Tests (Domain-Invarianten, `CreateCaseService` mit gemocktem Port)
-- [ ] BDD-Szenarien (Backend, REST-assured)
-- [ ] Reviewer-Agenten `hexagonal-reviewer` und `auth-security-reviewer`
+- [x] `Case` Aggregate Root + Value Objects (`CaseType`, `Priority`, `Source`, `CaseReference`) in `domain/model/`
+- [x] `AuditEntry` Value Object in `domain/model/`
+- [x] Use-Case-Port `CreateCase` in `domain/port/in/`
+- [x] Repository-Port `CaseRepository` in `domain/port/out/`
+- [x] `CreateCaseService` in `application/service/`
+- [x] `CaseEntity` + Panache-`CaseRepository`-Adapter in `adapter/out/persistence/`
+- [x] REST-Resource `POST /api/v1/cases` + DTOs in `adapter/in/rest/`
+- [x] Liquibase-Migration `case`-Tabelle + Include in `db/changeLog.xml`
+- [x] Unit-Tests (Domain-Invarianten, `CreateCaseService` mit gemocktem Port)
+- [x] BDD-Szenarien (Backend, REST-assured)
+- [x] Reviewer-Agenten `hexagonal-reviewer` und `auth-security-reviewer`

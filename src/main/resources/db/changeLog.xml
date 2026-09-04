@@ -6,5 +6,6 @@
 
     <!-- Migrationen fortlaufend nummerieren: db/migration/NNNN-kurztitel.xml -->
     <include file="db/migration/0001-baseline.xml"/>
+    <include file="db/migration/0002-create-case.xml"/>
 
 </databaseChangeLog>
