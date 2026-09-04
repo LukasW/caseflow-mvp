@@ -5,5 +5,6 @@ package ch.css.demo.caseflow.domain.model;
  * da ein Audit-Eintrag ein bereits geschehenes Ereignis festhält.
  */
 public enum AuditAction {
-    CASE_CREATED
+    CASE_CREATED,
+    CASE_ASSIGNED
 }

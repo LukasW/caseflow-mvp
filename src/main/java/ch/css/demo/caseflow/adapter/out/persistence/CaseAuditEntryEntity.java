@@ -35,6 +35,12 @@ public class CaseAuditEntryEntity {
     @Column(name = "actor", nullable = false)
     public String actor;
 
+    @Column(name = "previous_assignee")
+    public String previousAssignee;
+
+    @Column(name = "new_assignee")
+    public String newAssignee;
+
     @Column(name = "occurred_at", nullable = false)
     public Instant occurredAt;
 }

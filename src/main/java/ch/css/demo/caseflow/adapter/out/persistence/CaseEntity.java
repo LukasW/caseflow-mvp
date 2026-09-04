@@ -11,6 +11,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 import java.time.Instant;
@@ -52,6 +53,9 @@ public class CaseEntity {
     @Column(name = "status", nullable = false)
     public CaseStatus status;
 
+    @Column(name = "assignee")
+    public String assignee;
+
     @Column(name = "created_by", nullable = false)
     public String createdBy;
 
@@ -59,5 +63,6 @@ public class CaseEntity {
     public Instant createdAt;
 
     @OneToMany(mappedBy = "caseEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("occurredAt ASC")
     public List<CaseAuditEntryEntity> auditEntries = new ArrayList<>();
 }
