@@ -55,9 +55,11 @@ Lies und befolge `.github/skills/_shared/bdd-requirements.md`. Wenn Tag-Routing 
 Vor dem Commit. Reviewer sind Custom Agents in `.github/agents/`, voneinander unabhängig — wo möglich **parallel** als Subagents starten.
 
 **Conditional — Reviewer nur aufrufen, wenn relevante Dateien im Diff:**
+
 ```bash
 git diff --name-only origin/main
 ```
+
 Ergebnis auswerten und nur die Matches starten:
 
 - `hexagonal-reviewer` — nur wenn `src/main/java/**` im Diff
@@ -92,6 +94,7 @@ Abgleichen mit `.github/skills/_shared/dod-checklist.md`. Lücken eigenständig 
      src/main/webapp/src/assets/ \
      src/test/resources/features/
    ```
+
    - Leer → E2E überspringen, im PR-Body unter „Tests" notieren (`E2E skipped: kein UI-/Feature-Touch`).
    - Sonst → `cd src/main/webapp && npm run e2e:cucumber -- --fail-fast`.
 
@@ -135,6 +138,7 @@ Bei Konflikten **eigenständig lösen** — Kontext verstehen, beide Seiten zusa
      ```bash
      gh pr view <nr> --json statusCheckRollup -q '.statusCheckRollup | length'
      ```
+
      - Resultat `0` → keine Checks konfiguriert, **direkt zu B3**.
      - Resultat `> 0` → weiter mit Schritt 2.
   2. Auf Abschluss warten mit dem **eingebauten** `gh`-Watch-Modus:

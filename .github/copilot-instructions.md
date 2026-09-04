@@ -36,8 +36,8 @@ ihre Tests mit.
 ## Architektur
 
 Hexagonale Architektur (Ports & Adapters) für die Gesamtstruktur, taktisches
-DDD für das innere Hexagon. Hexagonal definiert *wo* Code lebt, DDD *welche
-Form* der Domänencode hat.
+DDD für das innere Hexagon. Hexagonal definiert _wo_ Code lebt, DDD _welche
+Form_ der Domänencode hat.
 
 ### Backend (Java)
 
@@ -63,6 +63,7 @@ ch.css.demo.caseflow/
 ```
 
 **Regeln:**
+
 - `domain/` hat **null** Framework-Abhängigkeiten (kein Quarkus, kein JPA, keine Jackson-Annotationen)
 - Domänenmodelle sind Java Records; JPA-Entities leben in `adapter/out/persistence/`
 - Use-Case-Interfaces (`port/in/`) definieren die API, die Adapter aufrufen
@@ -82,18 +83,19 @@ Die Bausteine gehören ins innere Hexagon (`domain/` + `application/`). KISS:
 `event/`, `service/` und `factory/` werden erst angelegt, wenn ein echter Use
 Case sie braucht.
 
-| Baustein                | Ort                                                       | Zweck & Regeln |
-|-------------------------|-----------------------------------------------------------|----------------|
-| **Aggregate Root**      | `domain/model/`                                           | Konsistenz- und Transaktionsgrenze. **Einziger** Einstiegspunkt ins Aggregat; Aussenwelt berührt innere Entities nie direkt. |
-| **Entity**              | `domain/model/`                                           | Stabile Identität über den Lebenszyklus. Lebt im Aggregat; Gleichheit per Identität. |
-| **Value Object**        | `domain/model/`                                           | Immutable, identitätslos, nur durch Attribute definiert. Java `record`; Invarianten im Compact Constructor. Gleichheit per Wert. |
-| **Domain Event**        | `domain/event/`                                           | Immutable `record`, Vergangenheitsform (`CaseAssigned`). Publiziert über einen Driven Port. |
-| **Domain Service**      | `domain/service/`                                         | Zustandslose Domänenlogik, die zu keiner Entity/VO passt oder mehrere Aggregate umspannt. Pure — kein Framework, keine Persistenz. |
-| **Repository**          | Port `domain/port/out/`, Impl `adapter/out/persistence/`  | Collection-Abstraktion für **ein** Aggregate Root. Nimmt/liefert Domänenmodelle, nie JPA-Entities. |
-| **Factory**             | `domain/factory/`                                         | Komplexe Aggregat-Erzeugung, die einen Konstruktor übersteigt. |
-| **Application Service** | `application/service/`                                    | Orchestriert einen Use Case: laden, Domänenmethode, persistieren, Event publizieren. Transaktionsgrenze — **keine** Geschäftsregeln. |
+| Baustein                | Ort                                                      | Zweck & Regeln                                                                                                                       |
+| ----------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **Aggregate Root**      | `domain/model/`                                          | Konsistenz- und Transaktionsgrenze. **Einziger** Einstiegspunkt ins Aggregat; Aussenwelt berührt innere Entities nie direkt.         |
+| **Entity**              | `domain/model/`                                          | Stabile Identität über den Lebenszyklus. Lebt im Aggregat; Gleichheit per Identität.                                                 |
+| **Value Object**        | `domain/model/`                                          | Immutable, identitätslos, nur durch Attribute definiert. Java `record`; Invarianten im Compact Constructor. Gleichheit per Wert.     |
+| **Domain Event**        | `domain/event/`                                          | Immutable `record`, Vergangenheitsform (`CaseAssigned`). Publiziert über einen Driven Port.                                          |
+| **Domain Service**      | `domain/service/`                                        | Zustandslose Domänenlogik, die zu keiner Entity/VO passt oder mehrere Aggregate umspannt. Pure — kein Framework, keine Persistenz.   |
+| **Repository**          | Port `domain/port/out/`, Impl `adapter/out/persistence/` | Collection-Abstraktion für **ein** Aggregate Root. Nimmt/liefert Domänenmodelle, nie JPA-Entities.                                   |
+| **Factory**             | `domain/factory/`                                        | Komplexe Aggregat-Erzeugung, die einen Konstruktor übersteigt.                                                                       |
+| **Application Service** | `application/service/`                                   | Orchestriert einen Use Case: laden, Domänenmethode, persistieren, Event publizieren. Transaktionsgrenze — **keine** Geschäftsregeln. |
 
 **Regeln:**
+
 - Andere Aggregate **per ID** referenzieren, nie per Objektreferenz — Aggregate klein halten.
 - Ein Repository pro Aggregate Root; ganze Aggregate laden/speichern, keine inneren Entities.
 - Invarianten werden **im** Aggregat durchgesetzt, nicht im Application Service.
@@ -122,12 +124,12 @@ das volle Domänenmodell — sie tragen keine Invarianten und keine Aggregatrege
 
 ## Rollenmodell
 
-| Rolle          | Zweck |
-|----------------|-------|
+| Rolle          | Zweck                                                                       |
+| -------------- | --------------------------------------------------------------------------- |
 | `CASE_MANAGER` | Fälle erfassen, übernehmen, bearbeiten, Wiedervorlagen setzen, abschliessen |
-| `TEAM_LEAD`    | Fälle zuweisen, Fristen und Auslastung des Teams überwachen |
-| `ADMIN`        | Stammdaten, Vertretungen, Konfiguration |
-| `AUDITOR`      | Lesender Zugriff auf Audit-Trail und Reports |
+| `TEAM_LEAD`    | Fälle zuweisen, Fristen und Auslastung des Teams überwachen                 |
+| `ADMIN`        | Stammdaten, Vertretungen, Konfiguration                                     |
+| `AUDITOR`      | Lesender Zugriff auf Audit-Trail und Reports                                |
 
 Interne Namen in `adapter/in/rest/security/Roles.java`; Keycloak-Client-Rollen
 (`caseflow-case-manager`, …) werden vom `RoleMappingAugmentor` abgebildet.
@@ -184,6 +186,7 @@ cd src/main/webapp && npm test    # Nur Frontend-Tests (Vitest)
 - DB-Spalten: snake_case
 
 **DDD-Bausteine** — ubiquitäre Sprache der Domäne, keine technischen Suffixe:
+
 - Aggregate Roots, Entities, Value Objects: das Domänen-Nomen (`Case`, `Deadline`, `Assignment`), kein `*Aggregate`/`*VO`-Suffix
 - Domain Events: Vergangenheitsform (`CaseAssigned`, `CaseClosed`)
 - Repositories (Driven Ports): `<AggregateRoot>Repository` (`CaseRepository`)
@@ -241,13 +244,13 @@ cd src/main/webapp && npm test    # Nur Frontend-Tests (Vitest)
 
 ## Quarkus-Profile
 
-| Profil      | Zweck |
-|-------------|-------|
+| Profil      | Zweck                                                                      |
+| ----------- | -------------------------------------------------------------------------- |
 | `%dev`      | Quinoa-Dev-Server, Dev-Services-DB, OIDC aus, Dev-Identität `CASE_MANAGER` |
-| `%test`     | Random HTTP-Port, kein Quinoa-Dev-Server, OIDC aus |
-| `%keycloak` | OIDC mit Keycloak (kombinieren: `-Dquarkus.profile=dev,keycloak`) |
-| `%postgres` | Direkte PostgreSQL-Verbindung (localhost:5434) |
-| `%prod`     | OIDC an, explizite DB-URL, Security-Header |
+| `%test`     | Random HTTP-Port, kein Quinoa-Dev-Server, OIDC aus                         |
+| `%keycloak` | OIDC mit Keycloak (kombinieren: `-Dquarkus.profile=dev,keycloak`)          |
+| `%postgres` | Direkte PostgreSQL-Verbindung (localhost:5434)                             |
+| `%prod`     | OIDC an, explizite DB-URL, Security-Header                                 |
 
 ## Wiederkehrende Aufgaben
 
@@ -261,14 +264,14 @@ cd src/main/webapp && npm test    # Nur Frontend-Tests (Vitest)
 
 ## Copilot-Werkzeuge in diesem Repo
 
-| Ort | Zweck |
-|-----|-------|
-| `.github/instructions/*.instructions.md` | Pfadbezogene Regeln (Backend-Hexagonal, Angular, Auth/Security, Cucumber) — greifen automatisch beim Bearbeiten passender Dateien |
-| `.github/agents/*.agent.md` | Custom Agents `hexagonal-reviewer`, `angular-signals-reviewer`, `auth-security-reviewer`, `bdd-cucumber-author` — als Reviewer vor jedem Commit einsetzen |
-| `.github/skills/<name>/SKILL.md` | Agent Skills (agentskills.io-Standard) `task`, `plan`, `implement`, `ship`, `autoship`, `fast`, `fix-e2e`, `adr` — nur auf ausdrücklichen Aufruf ausführen |
-| `.github/skills/_shared/*.md` | Geteilte Fragmente (DoD, BDD, Kosten-Disziplin, MCP-Erkennung), aus den Skills referenziert |
-| `.github/prompts/*.prompt.md` | Dünne Prompt-Dateien für VS Code (`/task`, `/implement`, …), delegieren an den gleichnamigen Skill |
-| `.github/hooks/reviewer-reminder.json` | PostToolUse-Hook: erinnert nach Edits an den passenden Reviewer-Agenten |
+| Ort                                      | Zweck                                                                                                                                                      |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.github/instructions/*.instructions.md` | Pfadbezogene Regeln (Backend-Hexagonal, Angular, Auth/Security, Cucumber) — greifen automatisch beim Bearbeiten passender Dateien                          |
+| `.github/agents/*.agent.md`              | Custom Agents `hexagonal-reviewer`, `angular-signals-reviewer`, `auth-security-reviewer`, `bdd-cucumber-author` — als Reviewer vor jedem Commit einsetzen  |
+| `.github/skills/<name>/SKILL.md`         | Agent Skills (agentskills.io-Standard) `task`, `plan`, `implement`, `ship`, `autoship`, `fast`, `fix-e2e`, `adr` — nur auf ausdrücklichen Aufruf ausführen |
+| `.github/skills/_shared/*.md`            | Geteilte Fragmente (DoD, BDD, Kosten-Disziplin, MCP-Erkennung), aus den Skills referenziert                                                                |
+| `.github/prompts/*.prompt.md`            | Dünne Prompt-Dateien für VS Code (`/task`, `/implement`, …), delegieren an den gleichnamigen Skill                                                         |
+| `.github/hooks/reviewer-reminder.json`   | PostToolUse-Hook: erinnert nach Edits an den passenden Reviewer-Agenten                                                                                    |
 
 Nach Änderungen an Backend-, Angular-, Auth- oder Feature-Dateien den passenden
 Reviewer-Agenten laufen lassen und gemeldete Verstösse vor dem Commit beheben.

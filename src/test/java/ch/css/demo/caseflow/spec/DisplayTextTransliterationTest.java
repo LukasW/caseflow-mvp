@@ -19,13 +19,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * ASCII-Transliteration eines Identifiers (ae/ue/oe) in kundensichtbaren
  * deutschen Anzeigetext leckt.
  *
- * <p>Geprüft wird ausschliesslich sichtbarer Text in Angular-Templates: Textknoten
- * zwischen den Tags sowie die Anzeige-Attribute {@code aria-label}, {@code title},
- * {@code placeholder}, {@code alt} und {@code matTooltip}. Klassennamen, Bindings
+ * <p>
+ * Geprüft wird ausschliesslich sichtbarer Text in Angular-Templates: Textknoten
+ * zwischen den Tags sowie die Anzeige-Attribute {@code aria-label},
+ * {@code title},
+ * {@code placeholder}, {@code alt} und {@code matTooltip}. Klassennamen,
+ * Bindings
  * und andere Identifier bleiben aussen vor.
  *
- * <p>Das Schweizer «ss» (schliessen, Stoss, muss) ist korrektes Hochdeutsch und
- * bewusst nicht Teil der Sperrliste — nur echte Umlaut-Transliterationen zählen.
+ * <p>
+ * Das Schweizer «ss» (schliessen, Stoss, muss) ist korrektes Hochdeutsch und
+ * bewusst nicht Teil der Sperrliste — nur echte Umlaut-Transliterationen
+ * zählen.
  */
 class DisplayTextTransliterationTest {
 
@@ -39,11 +44,10 @@ class DisplayTextTransliterationTest {
             "bestaetigen", "zustaendig", "zustaendigkeit", "uebersicht",
             "uebernehmen", "verfuegbar", "ausfuehren", "gueltig", "ungueltig");
 
-    private static final Pattern FORBIDDEN_WORD =
-            Pattern.compile("(?i)\\b(" + String.join("|", FORBIDDEN) + ")\\b");
+    private static final Pattern FORBIDDEN_WORD = Pattern.compile("(?i)\\b(" + String.join("|", FORBIDDEN) + ")\\b");
     private static final Pattern TEXT_NODE = Pattern.compile(">([^<]+)<");
-    private static final Pattern DISPLAY_ATTRIBUTE =
-            Pattern.compile("(?i)(?:aria-label|title|placeholder|alt|matTooltip)\\s*=\\s*\"([^\"]*)\"");
+    private static final Pattern DISPLAY_ATTRIBUTE = Pattern
+            .compile("(?i)(?:aria-label|title|placeholder|alt|matTooltip)\\s*=\\s*\"([^\"]*)\"");
     private static final Pattern INTERPOLATION = Pattern.compile("\\{\\{[^}]*}}");
 
     @Test

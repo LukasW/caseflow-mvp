@@ -45,12 +45,12 @@ Begründung → Konsequenzen → Verworfene Alternativen):
 ```markdown
 # ADR-<NN>: <Titel>
 
-| | |
-|---|---|
-| Status | <Vorgeschlagen \| Akzeptiert> |
-| Datum | <YYYY-MM-DD> |
-| Entscheider | <Rolle/Gremium> |
-| Bezug arc42 | <Kapitel …> |
+|             |                               |
+| ----------- | ----------------------------- |
+| Status      | <Vorgeschlagen \| Akzeptiert> |
+| Datum       | <YYYY-MM-DD>                  |
+| Entscheider | <Rolle/Gremium>               |
+| Bezug arc42 | <Kapitel …>                   |
 
 ## Kontext
 

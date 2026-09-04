@@ -31,24 +31,30 @@ Struktur (Markdown-Tasks `- [ ]` für alle Implementierungsschritte):
 # US-<nr> — <Titel>
 
 ## Übersicht
+
 <kurze Zusammenfassung>
 
 ## Zu erstellende Dateien
+
 - [ ] `pfad/Datei.java` — Zweck
 
 ## Zu ändernde Dateien
+
 - [ ] `pfad/Existing.ts` — Art der Änderung
 
 ## Architektur-Entscheide
+
 - Layer (Domain / Application / Adapter / Frontend)
 - Pattern (siehe Hexagonal/DDD in `.github/copilot-instructions.md`)
 
 ## Test-Strategie
+
 - [ ] Unit: …
 - [ ] Integration: …
 - [ ] BDD-Szenarien: …
 
 ## Offene Fragen
+
 - …
 ```
 

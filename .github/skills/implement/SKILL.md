@@ -61,9 +61,11 @@ Lies und befolge `.github/skills/_shared/bdd-requirements.md`. Nutze den Agenten
 Nach der Implementierung und vor dem Commit. Die Reviewer sind Custom Agents in `.github/agents/` und voneinander unabhängig — wo möglich **parallel** als Subagents starten, nicht nacheinander.
 
 **Conditional — Reviewer nur aufrufen, wenn relevante Dateien im Diff:**
+
 ```bash
 git diff --name-only origin/main
 ```
+
 Ergebnis auswerten und nur die Matches starten:
 
 - `hexagonal-reviewer` — nur wenn `src/main/java/**` im Diff
@@ -98,6 +100,7 @@ Abgleichen mit `.github/skills/_shared/dod-checklist.md`. Alle anwendbaren Punkt
      src/main/webapp/src/assets/ \
      src/test/resources/features/
    ```
+
    - Leer → E2E überspringen, im PR-Body unter „Tests" notieren (`E2E skipped: kein UI-/Feature-Touch`).
    - Sonst → `cd src/main/webapp && npm run e2e:cucumber -- --fail-fast`.
 

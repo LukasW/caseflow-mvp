@@ -22,15 +22,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * User Story und ihre Cucumber-Feature-Datei(en) synchron, damit die fachliche
  * Spezifikation nicht von den ausgeführten Tests wegdriftet.
  *
- * <p>Die Verknüpfung läuft über die Fallnummer: Eine {@code .feature}-Datei,
+ * <p>
+ * Die Verknüpfung läuft über die Fallnummer: Eine {@code .feature}-Datei,
  * deren Titel oder Tag {@code US-<n>} nennt, gehört zur User Story
  * {@code specs/user-stories/<n>-*.md}. Geprüft wird pro verknüpfter Story:
  * <ul>
- *   <li>die Story-Datei existiert (keine verwaisten Features),</li>
- *   <li>die Anzahl BDD-Szenarien in Story und Feature(s) stimmt überein.</li>
+ * <li>die Story-Datei existiert (keine verwaisten Features),</li>
+ * <li>die Anzahl BDD-Szenarien in Story und Feature(s) stimmt überein.</li>
  * </ul>
  *
- * <p>Noch nicht implementierte Stories (ohne Feature) lösen den Test nicht aus:
+ * <p>
+ * Noch nicht implementierte Stories (ohne Feature) lösen den Test nicht aus:
  * Die Parität greift erst, sobald ein Feature die Story referenziert. Wird eine
  * Story auf Backend- und Frontend-Feature aufgeteilt, zählt die Summe.
  */
@@ -41,8 +43,8 @@ class SpecScenarioParityTest {
 
     private static final Pattern US_MARKER = Pattern.compile("US-(\\d+)");
     private static final Pattern STORY_SCENARIO = Pattern.compile("(?m)^###\\s+Szenario\\b");
-    private static final Pattern FEATURE_SCENARIO =
-            Pattern.compile("(?m)^\\s*(Szenario|Szenariogrundriss|Scenario|Scenario Outline)\\s*:");
+    private static final Pattern FEATURE_SCENARIO = Pattern
+            .compile("(?m)^\\s*(Szenario|Szenariogrundriss|Scenario|Scenario Outline)\\s*:");
 
     @Test
     void featuresAndUserStoriesStayInSync() {
