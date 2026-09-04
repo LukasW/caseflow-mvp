@@ -19,6 +19,7 @@ public record CaseResponse(
         Priority priority,
         Source source,
         CaseStatus status,
+        String assignee,
         Instant createdAt) {
 
     public static CaseResponse from(Case aCase) {
@@ -30,6 +31,7 @@ public record CaseResponse(
                 aCase.priority(),
                 aCase.source(),
                 aCase.status(),
+                aCase.assignee() == null ? null : aCase.assignee().value(),
                 aCase.createdAt());
     }
 }

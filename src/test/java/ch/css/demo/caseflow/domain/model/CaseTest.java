@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -51,6 +52,45 @@ class CaseTest {
     @Test
     void caseNumber_erzwingtFormat() {
         assertThrows(IllegalArgumentException.class, () -> CaseNumber.of("42"));
+    }
+
+    @Test
+    void assignTo_setztZustaendigkeitUndLiefertNeueInstanz() {
+        Case newCase = createSampleCase();
+
+        Case assigned = newCase.assignTo(Assignee.of("bruno.cm"), "tom.tl", NOW);
+
+        assertEquals(Assignee.of("bruno.cm"), assigned.assignee());
+        assertNull(newCase.assignee());
+    }
+
+    @Test
+    void assignTo_erstzuweisung_schreibtAuditMitLeeremVorherUndGesetztemNachher() {
+        Case assigned = createSampleCase().assignTo(Assignee.of("bruno.cm"), "tom.tl", NOW);
+
+        AuditEntry entry = assigned.auditTrail().getLast();
+        assertEquals(AuditAction.CASE_ASSIGNED, entry.action());
+        assertEquals("tom.tl", entry.actor());
+        assertNull(entry.previousAssignee());
+        assertEquals(Assignee.of("bruno.cm"), entry.newAssignee());
+    }
+
+    @Test
+    void assignTo_umverteilung_haeltBisherigeUndNeueZustaendigkeitFest() {
+        Case assigned = createSampleCase().assignTo(Assignee.of("bruno.cm"), "tom.tl", NOW);
+
+        Case reassigned = assigned.assignTo(Assignee.of("clara.cm"), "tom.tl", NOW);
+
+        AuditEntry entry = reassigned.auditTrail().getLast();
+        assertEquals(Assignee.of("bruno.cm"), entry.previousAssignee());
+        assertEquals(Assignee.of("clara.cm"), entry.newAssignee());
+    }
+
+    @Test
+    void assignTo_ohneZustaendigkeit_wirdAbgewiesen() {
+        Case newCase = createSampleCase();
+
+        assertThrows(NullPointerException.class, () -> newCase.assignTo(null, "tom.tl", NOW));
     }
 
     private static Case createSampleCase() {

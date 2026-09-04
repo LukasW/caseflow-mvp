@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- US-2: Fall zuweisen — Zuständigkeit am Fall, Vorher/Nachher im Audit-Trail. -->
+    <changeSet id="0003-add-case-assignee" author="caseflow">
+        <addColumn tableName="cases">
+            <column name="assignee" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="0003-add-audit-assignee-before-after" author="caseflow">
+        <addColumn tableName="case_audit_entry">
+            <column name="previous_assignee" type="VARCHAR(255)"/>
+            <column name="new_assignee" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
