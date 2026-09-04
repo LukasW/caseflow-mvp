@@ -1,0 +1,108 @@
+<section class="mx-auto max-w-2xl px-4 py-10 sm:px-8">
+  <h1 class="text-3xl">Fall erfassen</h1>
+  <p class="mt-2 text-ink-muted">Erfasse die Grunddaten eines neuen Falls.</p>
+
+  @if (createdCase(); as created) {
+    <div
+      class="mt-6 rounded-md border border-brand bg-surface px-4 py-3 text-sm"
+      role="status"
+      data-testid="case-success"
+    >
+      Fall <span class="font-semibold">{{ created.case_number }}</span> wurde im Status
+      {{ statusLabels[created.status] }} angelegt.
+    </div>
+  }
+
+  @if (errorMessage(); as message) {
+    <div
+      class="mt-6 rounded-md border border-danger bg-surface px-4 py-3 text-sm text-danger"
+      role="alert"
+      data-testid="case-error"
+    >
+      {{ message }}
+    </div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="mt-8 flex flex-col gap-6" novalidate>
+    <div class="flex flex-col gap-1">
+      <label for="case-type" class="text-sm font-medium">Falltyp</label>
+      <select
+        id="case-type"
+        formControlName="case_type"
+        data-testid="field-case-type"
+        class="rounded-md border border-line bg-surface px-3 py-2"
+      >
+        <option value="" disabled>Bitte wählen</option>
+        @for (option of caseTypes; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+      @if (form.controls.case_type.touched && form.controls.case_type.invalid) {
+        <p class="text-sm text-danger" data-testid="error-case-type">
+          Falltyp ist erforderlich.
+        </p>
+      }
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="priority" class="text-sm font-medium">Priorität</label>
+      <select
+        id="priority"
+        formControlName="priority"
+        data-testid="field-priority"
+        class="rounded-md border border-line bg-surface px-3 py-2"
+      >
+        <option value="" disabled>Bitte wählen</option>
+        @for (option of priorities; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+      @if (form.controls.priority.touched && form.controls.priority.invalid) {
+        <p class="text-sm text-danger" data-testid="error-priority">Priorität ist erforderlich.</p>
+      }
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="source" class="text-sm font-medium">Quelle</label>
+      <select
+        id="source"
+        formControlName="source"
+        data-testid="field-source"
+        class="rounded-md border border-line bg-surface px-3 py-2"
+      >
+        <option value="" disabled>Bitte wählen</option>
+        @for (option of sources; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+      @if (form.controls.source.touched && form.controls.source.invalid) {
+        <p class="text-sm text-danger" data-testid="error-source">Quelle ist erforderlich.</p>
+      }
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="case-reference" class="text-sm font-medium">Kundenreferenz</label>
+      <input
+        id="case-reference"
+        type="text"
+        formControlName="case_reference"
+        data-testid="field-case-reference"
+        class="rounded-md border border-line bg-surface px-3 py-2"
+      />
+      @if (form.controls.case_reference.touched && form.controls.case_reference.invalid) {
+        <p class="text-sm text-danger" data-testid="error-case-reference">
+          Kundenreferenz ist erforderlich.
+        </p>
+      }
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="submitting()"
+      data-testid="submit-case"
+      class="self-start rounded-md bg-brand px-5 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+    >
+      Fall anlegen
+    </button>
+  </form>
+</section>
