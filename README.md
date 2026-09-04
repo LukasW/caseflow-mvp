@@ -89,6 +89,14 @@ stattdessen eine feste Identität bereit (Defaults in `application.properties`):
 ./mvnw quarkus:dev -Dcaseflow.auth.dev-user=lead -Dcaseflow.auth.dev-role=TEAM_LEAD
 ```
 
+Für das wiederkehrende Durchspielen als Team Lead (z. B. Fälle zuweisen und
+umverteilen) gibt es das Profil `teamlead`, das über `dev` gelegt wird und nur
+die Rolle überschreibt (rechtes Profil gewinnt):
+
+```bash
+./mvnw quarkus:dev -Dquarkus.profile=dev,teamlead
+```
+
 Die aktive Identität lässt sich jederzeit über `GET /api/v1/me` überprüfen.
 
 ## Testing
@@ -128,5 +136,6 @@ Architektur-Invarianten werden via ArchUnit geprüft
 | `%dev`      | Quinoa dev server, Dev Services PostgreSQL, OIDC disabled             |
 | `%test`     | Random HTTP port, no Quinoa dev server, OIDC disabled                |
 | `%keycloak` | OIDC enabled (combine with dev: `-Dquarkus.profile=dev,keycloak`)    |
+| `%teamlead` | Dev-Ersatzidentität als `TEAM_LEAD` (combine with dev: `-Dquarkus.profile=dev,teamlead`) |
 | `%postgres` | Direct PostgreSQL connection on localhost:5434                       |
 | `%prod`     | OIDC enabled, explicit DB URL, security headers                      |
