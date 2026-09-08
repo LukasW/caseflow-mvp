@@ -167,6 +167,16 @@ cd src/main/webapp && npm test    # Nur Frontend-Tests (Vitest)
 - **Guardrails** (`*Test`, ohne Container): `HexagonArchitectureTest` (Schichtdisziplin), `SpecScenarioParityTest` (Story ↔ `.feature`-Szenarien synchron), `DisplayTextTransliterationTest` (keine ASCII-Transliteration in kundensichtbarem Angular-Text)
 - Verhalten testen, nicht Implementierung. Eine Assertion pro logischem Konzept.
 
+### Testpyramide
+
+Die Testpyramide ist einzuhalten — **Speed ist entscheidend**. Das schnelle,
+container-freie Fundament (`./mvnw test`, Vitest) trägt die Testabdeckung; die
+langsamen, container- und browsergebundenen Ebenen bleiben bewusst schmal.
+
+- **Breite Basis — Unit-Tests**: Der Grossteil der Logik wird hier isoliert und ohne Container abgedeckt (Domänenlogik, Use-Case-Services mit gemockten Driven Ports, Vitest im Frontend). Schnell und deterministisch.
+- **Schmale Mitte — Integrationstests** (`@QuarkusTest`-ITs, Java-Cucumber): nur so viele wie nötig, um das Zusammenspiel gegen echte Infrastruktur (PostgreSQL) abzusichern.
+- **Schmale Spitze — UI-/E2E-Tests** (Playwright, Tag `@E2E`): **so wenige wie möglich**. Nur die kritischsten End-to-End-Pfade — sie sind langsam und brüchig. Verhalten, das auf einer tieferen Ebene abgedeckt werden kann, gehört dorthin, nicht in einen UI-Test.
+
 ## Clean Code
 
 ### Prinzipien

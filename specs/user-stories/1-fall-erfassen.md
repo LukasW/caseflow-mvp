@@ -5,7 +5,7 @@
 | ID | US-1 |
 | Priorität | Hoch |
 | Schätzung | M |
-| Issue | [#7](https://github.com/css-ch/caseflow-mvp/issues/7) |
+| Issue | [#7](https://github.com/css-ch/caseflow-mvp/issues/7) (Backend), [#17](https://github.com/css-ch/caseflow-mvp/issues/17) (Frontend) |
 | Plan | [us-7-fall-erfassen.md](../plans/us-7-fall-erfassen.md) |
 | Feature | [fall-erfassen.feature](../../src/test/resources/features/case/fall-erfassen.feature) |
 | Rollen | `CASE_MANAGER` |
@@ -24,6 +24,7 @@ damit **ein eingehendes Anliegen strukturiert im Tool statt in E-Mail oder Excel
 - Neuer Fall startet im Status `NEU` ohne Zuständigkeit
 - Pflichtfeld-Validierung serverseitig (fail fast an der REST-Grenze)
 - Erster Audit-Eintrag `CASE_CREATED` beim Anlegen
+- Erfassung über ein Angular-Formular in der Oberfläche mit Navigationseinstieg „Fall erfassen“ (#17); Erfolg zeigt die Fallnummer, das Formular leert sich für die nächste Erfassung
 
 **Out of Scope**
 
@@ -67,6 +68,20 @@ damit **ein eingehendes Anliegen strukturiert im Tool statt in E-Mail oder Excel
 - Betroffene Schichten: Domain (`Case` Aggregate Root, Value Objects Falltyp/Priorität/Quelle), Application (`CreateCaseService`), Adapter in REST (`POST /api/v1/cases`, DTOs), Adapter out Persistence (`CaseEntity`, `CaseRepository`), Liquibase-Migration
 - Statusmodell: neuer Fall im Status `NEU`
 - Audit-Trail ist Teil der Domäne (`AuditEntry`), kein Logging-Nebeneffekt
+- Frontend (#17): Standalone-Komponente `features/case-capture/` (Signals, `OnPush`, Reactive Forms), Route `faelle/erfassen` mit `roleGuard('CASE_MANAGER')`, `core/models/case.model.ts` (spiegelt die REST-DTOs, snake_case), `core/services/case.service.ts` (HTTP), Nav-Link in `shared/app-header.component.html`
+
+## Test-Strategie
+
+Das fachliche Verhalten (Anlegen, Pflichtfeld-Validierung, Rollenschutz) ist über die drei
+Backend-Cucumber-Szenarien gegen `POST /api/v1/cases` (REST-assured) abgedeckt — die
+verbindliche Durchsetzung liegt ohnehin serverseitig. Die Frontend-Erfassung (#17) wird
+**auf diese BDD-Tests konsolidiert** und zusätzlich über Angular-Komponententests (Vitest)
+abgesichert: `case.service.spec.ts` (POST-Aufruf) und `case-capture.component.spec.ts`
+(Formular-Validierung, Erfolg mit Fallnummer und Formular-Reset, Anzeige des
+Server-Validierungsfehlers). Der Rollenschutz der Route deckt `role.guard.spec.ts` ab.
+Kein eigenes `@E2E`-Feature — die Playwright-E2E-Infrastruktur startet keinen Server und
+fixiert die Dev-Identität auf `CASE_MANAGER`, sodass der Auditor-Fall dort nicht abbildbar
+ist; er bleibt im Backend-Szenario „Auditor darf keinen Fall erfassen“ verifiziert.
 
 ## Aufgaben
 
@@ -80,4 +95,6 @@ damit **ein eingehendes Anliegen strukturiert im Tool statt in E-Mail oder Excel
 - [x] Liquibase-Migration `case`-Tabelle + Include in `db/changeLog.xml`
 - [x] Unit-Tests (Domain-Invarianten, `CreateCaseService` mit gemocktem Port)
 - [x] BDD-Szenarien (Backend, REST-assured)
-- [x] Reviewer-Agenten `hexagonal-reviewer` und `auth-security-reviewer`
+- [x] Frontend (#17): `case.model.ts`, `case.service.ts`, Komponente `case-capture/`, Route mit `roleGuard`, Nav-Link
+- [x] Frontend-Komponententests (Vitest): `case.service.spec.ts`, `case-capture.component.spec.ts`
+- [x] Reviewer-Agenten `hexagonal-reviewer`, `auth-security-reviewer` und `angular-signals-reviewer`

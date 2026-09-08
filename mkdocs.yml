@@ -37,6 +37,7 @@ nav:
   - Start: index.md
   - Übersicht: high-level-specification.md
   - Spec Flow (SDD): spec-flow.md
+  - Workshop-Präsentation: praesentation/index.html
   - Architektur: caseflow-arc42.md
   - Glossar: glossary.md
 

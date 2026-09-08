@@ -6,6 +6,8 @@
 | Priorität | Hoch |
 | Schätzung | M |
 | Issue | [#8](https://github.com/css-ch/caseflow-mvp/issues/8) |
+| Plan | [us-8-fall-zuweisen.md](../plans/us-8-fall-zuweisen.md) |
+| Feature | [fall-zuweisen.feature](../../src/test/resources/features/case/fall-zuweisen.feature) |
 | Rollen | `TEAM_LEAD` |
 
 ## Beschreibung
@@ -69,11 +71,11 @@ damit **die Arbeit im Team klar verteilt ist und kein Fall ohne Zuständigkeit b
 
 ## Aufgaben
 
-- [ ] Domänenmethode `assignTo` auf `Case` (liefert neue Instanz + Audit-Eintrag)
-- [ ] Use-Case-Port `AssignCase` in `domain/port/in/`
-- [ ] `AssignCaseService` in `application/service/`
-- [ ] REST-Resource `PUT /api/v1/cases/{id}/assignment` + DTO
-- [ ] Rollencheck `TEAM_LEAD` serverseitig
-- [ ] Unit-Tests (Zuweisung, Umverteilung, Audit Vorher/Nachher)
-- [ ] BDD-Szenarien (Backend)
-- [ ] Reviewer-Agenten `hexagonal-reviewer` und `auth-security-reviewer`
+- [x] Domänenmethode `assignTo` auf `Case` (liefert neue Instanz + Audit-Eintrag)
+- [x] Use-Case-Port `AssignCase` in `domain/port/in/`
+- [x] `AssignCaseService` in `application/service/`
+- [x] REST-Resource `PUT /api/v1/cases/{id}/assignment` + DTO
+- [x] Rollencheck `TEAM_LEAD` serverseitig
+- [x] Unit-Tests (Zuweisung, Umverteilung, Audit Vorher/Nachher)
+- [x] BDD-Szenarien (Backend)
+- [x] Reviewer-Agenten `hexagonal-reviewer` und `auth-security-reviewer`
